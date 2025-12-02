@@ -1,0 +1,112 @@
+graph TB
+    subgraph Users["👥 User Management"]
+        USERS["<b>USERS</b><br/>user_id PK<br/>username<br/>password<br/>role<br/>status<br/>created_at"]
+        ADMIN_LOGS["<b>ADMIN_LOGS</b><br/>log_id PK<br/>action<br/>entity_type<br/>entity_id<br/>admin_id FK"]
+    end
+    
+    subgraph Packages["📦 Package Management"]
+        PACKAGES["<b>PACKAGES</b><br/>package_id PK<br/>package_name<br/>start_time<br/>end_time<br/>duration_minutes<br/>pass_mark<br/>total_examinee<br/>max_concurrent"]
+        CATEGORIES["<b>CATEGORIES</b><br/>category_id PK<br/>category_name<br/>total_questions<br/>package_id FK"]
+        ANALYSIS["<b>ANALYSIS</b><br/>analysis_id PK<br/>total_examinee<br/>participants<br/>passed<br/>failed<br/>package_id FK"]
+    end
+    
+    subgraph Questions["❓ Question Management"]
+        QUESTIONS["<b>QUESTIONS</b><br/>question_id PK<br/>question_text<br/>marks<br/>negative_mark<br/>category_id FK<br/>package_id FK"]
+        QUESTION_OPTIONS["<b>QUESTION_OPTIONS</b><br/>option_id PK<br/>option_text<br/>is_correct<br/>question_id FK"]
+        QOC["<b>QUESTION_OPTIONS<br/>_COLLECTION</b><br/>question_id FK<br/>option_id<br/>option_text"]
+        QCA["<b>QUESTION_CORRECT<br/>_ANSWERS</b><br/>question_id FK<br/>option_id"]
+    end
+    
+    subgraph Exams["📝 Exam Management"]
+        EXAMS["<b>EXAMS</b><br/>exam_id PK<br/>exam_name<br/>status<br/>duration_seconds<br/>user_id FK<br/>package_id FK<br/>category_id FK"]
+        USER_ANSWERS["<b>USER_ANSWERS</b><br/>answer_id PK<br/>is_correct<br/>marks_obtained<br/>exam_id FK<br/>user_id FK<br/>question_id FK"]
+        RESULTS["<b>RESULTS</b><br/>result_id PK<br/>total_questions<br/>right_answers<br/>obtained_marks<br/>percentage<br/>exam_id FK<br/>user_id FK"]
+        RE_EXAMS["<b>RE_EXAMS</b><br/>re_exam_id PK<br/>reason<br/>exam_id FK<br/>user_id FK<br/>approved_by FK"]
+    end
+    
+    subgraph Collections["📊 Element Collections"]
+        USO["<b>USER_SUBMITTED<br/>_OPTIONS</b><br/>answer_id FK<br/>option_id"]
+        USOT["<b>USER_SELECTED<br/>_OPTION_TEXTS</b><br/>answer_id FK<br/>option_text"]
+        UAD["<b>USER_ANSWER<br/>_DETAILS</b><br/>answer_id FK<br/>answer_text<br/>is_reviewed"]
+    end
+    
+    subgraph Communication["💬 Communication"]
+        MESSAGES["<b>MESSAGES</b><br/>message_id PK<br/>subject<br/>message_text<br/>sender_id FK<br/>recipient_id FK<br/>reply_id FK"]
+        NOTIFICATIONS["<b>NOTIFICATIONS</b><br/>notification_id PK<br/>type<br/>title<br/>description<br/>user_id FK<br/>exam_id FK"]
+    end
+    
+    subgraph Access["🔐 Access Management"]
+        USER_PACKAGES["<b>USER_PACKAGES</b><br/>user_package_id PK<br/>access_type<br/>user_id FK<br/>package_id FK"]
+        INSTRUCTIONS["<b>INSTRUCTIONS</b><br/>instruction_id PK<br/>instruction_text<br/>package_id FK"]
+    end
+    
+    %% User Relationships
+    USERS -->|creates| PACKAGES
+    USERS -->|creates| QUESTIONS
+    USERS -->|creates| INSTRUCTIONS
+    USERS -->|takes| EXAMS
+    USERS -->|submits| USER_ANSWERS
+    USERS -->|gets| RESULTS
+    USERS -->|sends/receives| MESSAGES
+    USERS -->|accesses| USER_PACKAGES
+    USERS -->|performs| ADMIN_LOGS
+    USERS -->|receives| NOTIFICATIONS
+    USERS -->|requests| RE_EXAMS
+    
+    %% Package Relationships
+    PACKAGES -->|groups| CATEGORIES
+    PACKAGES -->|contains| QUESTIONS
+    PACKAGES -->|has| EXAMS
+    PACKAGES -->|has| INSTRUCTIONS
+    PACKAGES -->|offered via| USER_PACKAGES
+    PACKAGES -->|generates| ANALYSIS
+    PACKAGES -->|associated with| RE_EXAMS
+    
+    %% Category Relationships
+    CATEGORIES -->|groups| QUESTIONS
+    CATEGORIES -->|for| EXAMS
+    
+    %% Question Relationships
+    QUESTIONS -->|has| QUESTION_OPTIONS
+    QUESTIONS -->|has| QOC
+    QUESTIONS -->|has| QCA
+    QUESTIONS -->|answered by| USER_ANSWERS
+    
+    %% Question Options Relationships
+    QUESTION_OPTIONS -->|selected in| USER_ANSWERS
+    QUESTION_OPTIONS -->|in| USO
+    
+    %% Exam Relationships
+    EXAMS -->|contains| USER_ANSWERS
+    EXAMS -->|produces| RESULTS
+    EXAMS -->|generates| RE_EXAMS
+    EXAMS -->|triggers| NOTIFICATIONS
+    
+    %% User Answers Relationships
+    USER_ANSWERS -->|contains| USO
+    USER_ANSWERS -->|contains| USOT
+    USER_ANSWERS -->|contains| UAD
+    
+    %% Message Relationships
+    MESSAGES -->|replies to| MESSAGES
+    
+    %% Access Relationships
+    USER_PACKAGES -->|links| USERS
+    USER_PACKAGES -->|links| PACKAGES
+    
+    %% Styling
+    classDef users fill:#e1f5ff,stroke:#0277bd,stroke-width:2px
+    classDef packages fill:#f3e5f5,stroke:#6a1b9a,stroke-width:2px
+    classDef questions fill:#fff3e0,stroke:#e65100,stroke-width:2px
+    classDef exams fill:#f1f8e9,stroke:#558b2f,stroke-width:2px
+    classDef collections fill:#fce4ec,stroke:#c2185b,stroke-width:2px
+    classDef communication fill:#ede7f6,stroke:#512da8,stroke-width:2px
+    classDef access fill:#e0f2f1,stroke:#004d40,stroke-width:2px
+    
+    class USERS,ADMIN_LOGS users
+    class PACKAGES,CATEGORIES,ANALYSIS packages
+    class QUESTIONS,QUESTION_OPTIONS,QOC,QCA questions
+    class EXAMS,USER_ANSWERS,RESULTS,RE_EXAMS exams
+    class USO,USOT,UAD collections
+    class MESSAGES,NOTIFICATIONS communication
+    class USER_PACKAGES,INSTRUCTIONS access
