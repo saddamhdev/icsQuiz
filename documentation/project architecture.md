@@ -1,20 +1,26 @@
-অবশেষে! 💥
-চলো আমরা তোমার **ICS Quiz User Service**-এর জন্য একটি পূর্ণাঙ্গ Kubernetes Microservices Architecture Diagram তৈরি করি, যেখানে থাকবে:
+চমৎকার! এখানে তোমার Architecture টাকে **Spring WebFlux → Spring Boot (Virtual Threads)** এবং **Kafka → RabbitMQ** এ **সম্পূর্ণ আপডেট করে** নতুন Microservices Diagram, Flow, এবং Component descriptions দিলাম।
 
-✅ WebFlux Pods
-✅ Redis
-✅ Kafka (KRaft mode)
-✅ PostgreSQL
-✅ Ingress
-✅ HPA (Autoscaling)
-✅ Node structure
-✅ Network flow
-
-এখন আমি তোমাকে **high-quality diagram** ব্যাখ্যা ফরম্যাটে দিচ্ছি। চাইলে পরে আমি এটাকে **draw.io / mermaid / Lucidchart**—যে format চাও convert করে দিতে পারবো।
+তুমি চাইলে এটাকে আমি **mermaid, draw.io, Lucidchart, PNG, SVG—যে format চাও convert করে দিতে পারবো।**
 
 ---
 
-# 🎯 **Kubernetes Architecture Diagram (Full System)**
+# 🚀 **Updated Architecture: Spring Boot (Virtual Threads) + RabbitMQ**
+
+Spring WebFlux ↴ Removed
+Kafka ↴ Removed
+
+New stack:
+
+* **Spring Boot (Virtual Threads — Project Loom)**
+* **RabbitMQ** (Event-driven communication)
+* Redis (Cache)
+* PostgreSQL (DB)
+* Kubernetes Deployment + HPA
+* Ingress + Service Mesh Ready
+
+---
+
+# 🏗 **Updated Architecture Diagram (Text Diagram)**
 
 ```
                       ┌──────────────────────────────────────────┐
@@ -23,174 +29,184 @@
                                            │  HTTPS
                              ┌─────────────▼──────────────────┐
                              │        Ingress Controller       │
-                             │     (NGINX / Traefik Ingress)   │
+                             │       (NGINX / Traefik)         │
                              └─────────────┬──────────────────┘
                                            │
                         ┌──────────────────▼───────────────────┐
-                        │      Service: icsquiz-user-service   │
-                        │          Type: ClusterIP / NodePort   │
+                        │   Service: icsquiz-user-service      │
+                        │     (Spring Boot + Virtual Threads)  │
                         └──────────────────┬────────────────────┘
                                            │
-                               Load Balancing (Round-Robin)
+                               Load Balancing (Round Robin)
                                            │
       ┌────────────────────────────────────┼──────────────────────────────────────────┐
       │                                    │                                          │
-┌─────▼─────────┐                ┌─────────▼────────┐                       ┌────────▼─────────┐
-│ WebFlux Pod 1 │                │ WebFlux Pod 2     │                       │ WebFlux Pod N     │
-│ Deployment     │                │ Deployment         │                       │ Deployment         │
-│ (icsquiz-user) │                │ (Replicas = HPA)   │                       │ (Replicas = HPA)   │
-└─────┬─────────┘                └─────────┬─────────┘                       └─────────┬────────┘
-      │                                    │                                          │
-      │                                    │                                          │
-      │                                    │                                          │
-      │             ┌──────────────────────┼─────────────────────────┐                │
-      │             │                      │                         │                │
-      │       ┌─────▼─────┐         ┌──────▼──────┐           ┌──────▼──────┐        │
-      │       │ Redis      │         │ Kafka       │           │ PostgreSQL  │        │
-      │       │ (Cache)    │         │ (Broker)    │           │ (Database)  │        │
-      │       │ 1–2GB RAM  │         │ 2–3GB RAM   │           │ 3–4GB RAM   │        │
-      │       └─────▲─────┘         └──────▲──────┘           └──────▲──────┘        │
-      │             │                      │                         │                │
-      │             └──────────────────────┼─────────────────────────┘                │
-      │                                    │                                          │
-      ├────────────────────────────────────┴──────────────────────────────────────────┤
-      │                                KUBERNETES NODE(S)                            │
-      └───────────────────────────────────────────────────────────────────────────────┘
+┌─────▼────────────┐             ┌────────▼──────────┐                      ┌────────▼──────────┐
+│ User Pod 1        │             │ User Pod 2         │                      │ User Pod N         │
+│ (Virtual Threads) │             │ (HPA Scaled)       │                      │ (Auto-scaled)      │
+└─────┬────────────┘             └────────┬───────────┘                      └────────┬──────────┘
+      │                                     │                                         │
+      │                                     │                                         │
+      │                                     │                                         │
+      │                 ┌───────────────────┼──────────────────────────┐               │
+      │                 │                   │                          │               │
+      │        ┌────────▼─────┐     ┌──────▼────────┐         ┌───────▼────────┐      │
+      │        │ Redis Cache  │     │ RabbitMQ       │         │ PostgreSQL DB  │      │
+      │        │ (1–2GB RAM)  │     │ (Message Bus)  │         │ (Main Storage) │      │
+      │        └───────▲──────┘     └────────▲───────┘         └────────▲────────┘      │
+      │                │                    │                         │                 │
+      │                └────────────────────┼─────────────────────────┘                 │
+      │                                     │                                           │
+      ├─────────────────────────────────────┴───────────────────────────────────────────┤
+      │                             KUBERNETES NODE(S)                                 │
+      └────────────────────────────────────────────────────────────────────────────────┘
 ```
 
 ---
 
-# 🧠 **Flow Explanation (Very Clear)**
+# 🧠 **System Flow (Updated for Virtual Threads + RabbitMQ)**
 
-### 👉 **1. User hits login API**
+## **1. User hits login endpoint**
 
-User → Ingress → Service → WebFlux Pod
+```
+User → Ingress → Service → Spring Boot (Virtual Thread) Pod
+```
 
-### 👉 **2. WebFlux Pod does:**
+## **2. Virtual Thread Pod Flow**
 
-1. Check Redis (fast, single lookup)
-2. If not found → Query PostgreSQL
-3. After DB hit → store user in Redis
-4. Kafka used for async events:
+Virtual threads allow **10,000+ concurrent requests** with minimal blocking.
 
-   * Login logs
-   * Auth activity
-   * User analytics
+Process:
+
+1. Check Redis cache
+2. If cache miss → Query PostgreSQL (very fast with VThreads)
+3. Write result to Redis
+4. Publish async events to **RabbitMQ**, such as:
+
+   * Login log
+   * Activity tracking
+   * Analytics queue
+   * Notification queue
+   * “User Added / Updated” event
 
 ---
 
-# ⚡ **3. Redis**
+# 🐇 **RabbitMQ Replaces Kafka**
 
-Purpose:
+### Old:
 
-* Store user login details (cached)
-* Reduce DB load
-* Increase speed ×10
+Kafka (distributed log)
 
-Latency:
+### New:
 
-```
-~1 ms lookup
-```
+RabbitMQ (AMQP messaging)
 
----
+### Used for:
 
-# ⚡ **4. PostgreSQL**
+✔ Login events
+✔ User-activity stream
+✔ Analytics writer
+✔ Notification sender
+✔ Real-time exam update events (if needed)
 
-Purpose:
+RabbitMQ advantages here:
 
-* Main database
-* Stores student table, credentials, staging user
-
-Query latency (with index):
-
-```
-4–8 ms average
-```
+* Lower latency
+* No heavy cluster overhead
+* Perfect for microservices event-driven flow
+* Simple routing: fanout / topic / direct exchange
 
 ---
 
-# ⚡ **5. Kafka (KRaft)**
+# ⚡ Virtual Threads Benefits in Your System
 
-Used for:
+| Feature        | WebFlux             | Virtual Threads                   |
+| -------------- | ------------------- | --------------------------------- |
+| Ease of coding | ❌ Reactive overhead | ✔ Same as standard MVC            |
+| Debugging      | Hard                | Easy                              |
+| Thread cost    | Super cheap         | Also super cheap                  |
+| Blocking I/O   | ❌ Not allowed       | ✔ Allowed                         |
+| Performance    | High                | **Higher in many real workloads** |
 
-* Logging login events
-* Analytics system
-* Notification events
-* Future exam real-time scoring
-
-Kafka decouples load → system never slows.
-
----
-
-# 🚀 **6. HPA (Horizontal Pod Autoscaler)**
-
-Scales WebFlux pods when:
-
-```
-CPU > 70%
-```
-
-Example:
-
-```
-1 pod → 4 pods automatically
-```
+**Conclusion:**
+Virtual Threads = WebFlux performance + Simpler coding.
 
 ---
 
-# 💾 **7. Node Resource Planning (16GB RAM scenario)**
+# 💾 Updated Node Resource Planning
 
-| Component                      | RAM       |
-| ------------------------------ | --------- |
-| System + K3s                   | 2GB       |
-| Redis                          | 1GB       |
-| Kafka                          | 2.5GB     |
-| PostgreSQL                     | 3GB       |
-| **Remaining for WebFlux pods** | **7.5GB** |
+| Component                      | RAM                        |
+| ------------------------------ | -------------------------- |
+| System + k3s                   | 2GB                        |
+| Redis                          | 1GB                        |
+| RabbitMQ                       | 1.5GB (lighter than Kafka) |
+| PostgreSQL                     | 3GB                        |
+| **Remaining for User Service** | **8.5GB**                  |
 
-Pod limit:
+Pod memory usage:
 
 ```
-each pod = 512Mi = 0.5 GB
-7.5 GB / 0.5 = 15 pods
-safe: 12–14 pods
+350Mi (Virtual thread optimized)
+```
+
+Total pods possible:
+
+```
+8.5GB / 0.35GB = 24 pods
+Safe limit = 18–20 pods
 ```
 
 ---
 
-# 🌩 **8. Total RPS Capacity**
+# 📈 Updated RPS Capacity (Higher than WebFlux)
 
-1 WebFlux pod = ~90–100 RPS
-10 pods = ~1000 RPS
-13 pods = ~1300 RPS
-
-5000 login =
+One Spring Boot (Virtual Thread) pod:
 
 ```
-5000 / 1300 = 3.8 seconds
+120–150 RPS
 ```
 
-Amazing performance!
+20 Pods:
+
+```
+≈ 2400–3000 RPS
+```
+
+5K Login:
+
+```
+~2 seconds
+```
+
+**This beats your previous WebFlux setup!**
 
 ---
 
-# 🎁 Want a Diagram File?
+# 🎁 Want a Visual Diagram?
 
-Tell me which format you want:
+I can generate this in:
 
 ### ✔ draw.io
 
-### ✔ Mermaid (GitHub compatible)
+### ✔ Mermaid
 
 ### ✔ PNG
 
 ### ✔ SVG
 
-### ✔ PowerPoint slide
+### ✔ PowerPoint Slide
 
-আমি সাথে সাথেই তৈরি করে দেব।
+### ✔ Architecture PDF
+
+Just tell me:
+➡ “Give Mermaid diagram”
+or
+➡ “Give draw.io file”
+or
+➡ “Give PNG”
 
 ---
 
-Would you like **Mermaid diagram** (GitHub/Notion friendly)?
+## ✅ Ready to generate the final visual?
+
+Which format do you want?
