@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Revenue & Cost Analysis Slide</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+</head>
+<body style="margin: 0; padding: 20px; background: #f5f5f5; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;">
+    <div style="text-align: center; margin-bottom: 20px;">
+        <h1>Revenue & Cost Analysis Slide</h1>
+        <button onclick="downloadPNG()" style="padding: 10px 20px; font-size: 16px; background: #667eea; color: white; border: none; border-radius: 4px; cursor: pointer;">
+            📥 Download as PNG
+        </button>
+    </div>
+
+    <div id="slide" style="background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 50%, #ffffff 100%); padding: 60px; margin: 0 auto; width: fit-content; border-radius: 16px; box-shadow: 0 20px 60px rgba(0,0,0,0.1); max-width: 1400px; aspect-ratio: 16/9;">
+        
+        <div style="display: flex; flex-direction: column; height: 100%; justify-content: space-between;">
+            
+            <!-- Header -->
+            <div style="text-align: center; margin-bottom: 40px;">
+                <h1 style="font-size: 48px; color: #1a1a1a; margin: 0 0 10px 0; font-weight: 800;">💰 Revenue & Cost Analysis</h1>
+                <p style="font-size: 16px; color: #555555; margin: 0;">ICS Quiz System - Financial Projections & Savings</p>
+            </div>
+
+            <!-- Main Grid -->
+            <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 30px; flex: 1; margin-bottom: 40px;">
+                
+                <!-- Cost Structure -->
+                <div style="background: linear-gradient(135deg, #ffebee 0%, #ffcdd2 100%); border-left: 5px solid #e74c3c; border-radius: 14px; padding: 30px; box-shadow: 0 8px 16px rgba(231, 76, 60, 0.15);">
+                    <h2 style="font-size: 22px; color: #c0392b; margin: 0 0 25px 0; font-weight: 700;">📊 Monthly Cost</h2>
+                    
+                    <div style="background: rgba(231, 76, 60, 0.1); border-radius: 10px; padding: 20px; margin-bottom: 20px; border-left: 3px solid #e74c3c;">
+                        <div style="font-size: 13px; color: #333333; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 8px; font-weight: 600;">Minimum Plan</div>
+                        <div style="font-size: 32px; font-weight: 800; color: #e74c3c;">$32</div>
+                        <div style="font-size: 12px; color: #555555; margin-top: 5px;">VPS 30+20 (32GB RAM)</div>
+                    </div>
+
+                    <div style="background: rgba(231, 76, 60, 0.1); border-radius: 10px; padding: 20px; border-left: 3px solid #e74c3c;">
+                        <div style="font-size: 13px; color: #333333; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 8px; font-weight: 600;">Maximum Plan</div>
+                        <div style="font-size: 32px; font-weight: 800; color: #e74c3c;">$120</div>
+                        <div style="font-size: 12px; color: #555555; margin-top: 5px;">VPS 50 + Premium (64GB RAM)</div>
+                    </div>
+
+                    <div style="background: rgba(231, 76, 60, 0.05); border-radius: 10px; padding: 15px; margin-top: 20px; text-align: center;">
+                        <div style="font-size: 16px; font-weight: 700; color: #c0392b;">Range: $32–$120/mo</div>
+                        <div style="font-size: 12px; color: #555555; margin-top: 5px;">Based on usage & load</div>
+                    </div>
+                </div>
+
+                <!-- Annual Savings -->
+                <div style="background: linear-gradient(135deg, #e8f5e9 0%, #c8e6c9 100%); border-left: 5px solid #27ae60; border-radius: 14px; padding: 30px; box-shadow: 0 8px 16px rgba(39, 174, 96, 0.15);">
+                    <h2 style="font-size: 22px; color: #1b5e20; margin: 0 0 25px 0; font-weight: 700;">🎯 Annual Savings</h2>
+                    
+                    <div style="background: rgba(39, 174, 96, 0.1); border-radius: 10px; padding: 20px; margin-bottom: 20px; border-left: 3px solid #27ae60;">
+                        <div style="font-size: 13px; color: #333333; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 8px; font-weight: 600;">Vs Traditional Setup</div>
+                        <div style="font-size: 32px; font-weight: 800; color: #27ae60;">$1,300</div>
+                        <div style="font-size: 12px; color: #555555; margin-top: 5px;">Minimum annual savings</div>
+                    </div>
+
+                    <div style="background: rgba(39, 174, 96, 0.1); border-radius: 10px; padding: 20px; border-left: 3px solid #27ae60;">
+                        <div style="font-size: 13px; color: #333333; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 8px; font-weight: 600;">Maximum Savings</div>
+                        <div style="font-size: 32px; font-weight: 800; color: #27ae60;">$1,600</div>
+                        <div style="font-size: 12px; color: #555555; margin-top: 5px;">With premium setup</div>
+                    </div>
+
+                    <div style="background: rgba(39, 174, 96, 0.05); border-radius: 10px; padding: 15px; margin-top: 20px; text-align: center;">
+                        <div style="font-size: 16px; font-weight: 700; color: #1b5e20;">Save: $1,300–$1,600/year</div>
+                        <div style="font-size: 12px; color: #555555; margin-top: 5px;">Compared to monolithic</div>
+                    </div>
+                </div>
+
+                <!-- ROI & Metrics -->
+                <div style="background: linear-gradient(135deg, #e3f2fd 0%, #bbdefb 100%); border-left: 5px solid #2196f3; border-radius: 14px; padding: 30px; box-shadow: 0 8px 16px rgba(33, 150, 243, 0.15);">
+                    <h2 style="font-size: 22px; color: #0d47a1; margin: 0 0 25px 0; font-weight: 700;">📈 Key Metrics</h2>
+                    
+                    <div style="background: rgba(33, 150, 243, 0.1); border-radius: 10px; padding: 15px; margin-bottom: 15px; border-left: 3px solid #2196f3;">
+                        <div style="font-size: 12px; color: #333333; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 5px; font-weight: 600;">ROI</div>
+                        <div style="font-size: 28px; font-weight: 800; color: #1565c0;">40x</div>
+                        <div style="font-size: 11px; color: #555555;">Return on infrastructure</div>
+                    </div>
+
+                    <div style="background: rgba(33, 150, 243, 0.1); border-radius: 10px; padding: 15px; margin-bottom: 15px; border-left: 3px solid #2196f3;">
+                        <div style="font-size: 12px; color: #333333; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 5px; font-weight: 600;">Per Student</div>
+                        <div style="font-size: 28px; font-weight: 800; color: #1565c0;">$0.0004</div>
+                        <div style="font-size: 11px; color: #555555;">Cost per exam session</div>
+                    </div>
+
+                    <div style="background: rgba(33, 150, 243, 0.1); border-radius: 10px; padding: 15px; border-left: 3px solid #2196f3;">
+                        <div style="font-size: 12px; color: #333333; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 5px; font-weight: 600;">Payback Period</div>
+                        <div style="font-size: 28px; font-weight: 800; color: #1565c0;">1 month</div>
+                        <div style="font-size: 11px; color: #555555;">Full cost recovery</div>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- Cost Breakdown Bar -->
+            <div style="background: linear-gradient(90deg, #fff8e1 0%, #fff9c4 100%); border-radius: 12px; padding: 25px; margin-bottom: 30px; border: 2px solid #fbc02d; box-shadow: 0 8px 16px rgba(251, 192, 45, 0.15);">
+                <div style="font-size: 14px; font-weight: 700; color: #333333; margin-bottom: 20px;">💵 Monthly Infrastructure Breakdown</div>
+                
+                <div style="display: grid; grid-template-columns: repeat(6, 1fr); gap: 15px;">
+                    <div style="background: linear-gradient(135deg, #ffebee 0%, #ffcdd2 100%); border-radius: 8px; padding: 15px; text-align: center; border-left: 3px solid #e74c3c;">
+                        <div style="font-size: 20px; font-weight: 800; color: #c0392b;">$32.80</div>
+                        <div style="font-size: 11px; color: #333333; margin-top: 5px; text-transform: uppercase; font-weight: 600;">Min Setup</div>
+                    </div>
+
+                    <div style="background: linear-gradient(135deg, #fff3e0 0%, #ffe0b2 100%); border-radius: 8px; padding: 15px; text-align: center; border-left: 3px solid #f39c12;">
+                        <div style="font-size: 20px; font-weight: 800; color: #d68910;">$52.60</div>
+                        <div style="font-size: 11px; color: #333333; margin-top: 5px; text-transform: uppercase; font-weight: 600;">Standard</div>
+                    </div>
+
+                    <div style="background: linear-gradient(135deg, #fce4ec 0%, #f8bbd0 100%); border-radius: 8px; padding: 15px; text-align: center; border-left: 3px solid #e91e63;">
+                        <div style="font-size: 20px; font-weight: 800; color: #ad1457;">$57.60</div>
+                        <div style="font-size: 11px; color: #333333; margin-top: 5px; text-transform: uppercase; font-weight: 600;">Advanced</div>
+                    </div>
+
+                    <div style="background: linear-gradient(135deg, #f3e5f5 0%, #e1bee7 100%); border-radius: 8px; padding: 15px; text-align: center; border-left: 3px solid #9c27b0;">
+                        <div style="font-size: 20px; font-weight: 800; color: #6a1b9a;">$120</div>
+                        <div style="font-size: 11px; color: #333333; margin-top: 5px; text-transform: uppercase; font-weight: 600;">Premium</div>
+                    </div>
+
+                    <div style="background: linear-gradient(135deg, #e8f5e9 0%, #c8e6c9 100%); border-radius: 8px; padding: 15px; text-align: center; border-left: 3px solid #27ae60;">
+                        <div style="font-size: 20px; font-weight: 800; color: #1b5e20;">$394/yr</div>
+                        <div style="font-size: 11px; color: #333333; margin-top: 5px; text-transform: uppercase; font-weight: 600;">Annual Min</div>
+                    </div>
+
+                    <div style="background: linear-gradient(135deg, #e3f2fd 0%, #bbdefb 100%); border-radius: 8px; padding: 15px; text-align: center; border-left: 3px solid #2196f3;">
+                        <div style="font-size: 20px; font-weight: 800; color: #0d47a1;">$1,440/yr</div>
+                        <div style="font-size: 11px; color: #333333; margin-top: 5px; text-transform: uppercase; font-weight: 600;">Annual Max</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Bottom Benefits -->
+            <div style="background: linear-gradient(90deg, #e8f5e9 0%, #e3f2fd 100%); border-radius: 12px; padding: 20px; border: 2px solid #27ae60; box-shadow: 0 8px 16px rgba(0,0,0,0.08);">
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 30px;">
+                    
+                    <div>
+                        <div style="font-size: 14px; font-weight: 700; color: #1b5e20; margin-bottom: 10px;">✅ Cost Advantages</div>
+                        <ul style="list-style: none; margin: 0; padding: 0; font-size: 12px; color: #333333; line-height: 2;">
+                            <li>• 40-50% cheaper than monolithic</li>
+                            <li>• Virtual Threads = low memory footprint</li>
+                            <li>• No license costs (open source)</li>
+                            <li>• Pay only for what you use</li>
+                        </ul>
+                    </div>
+
+                    <div>
+                        <div style="font-size: 14px; font-weight: 700; color: #0d47a1; margin-bottom: 10px;">🎯 Revenue Opportunities</div>
+                        <ul style="list-style: none; margin: 0; padding: 0; font-size: 12px; color: #333333; line-height: 2;">
+                            <li>• Pricing: $2-5 per student/exam</li>
+                            <li>• 50k students = $100k-250k/exam</li>
+                            <li>• Break-even: ~2 exams with savings</li>
+                            <li>• Highly scalable profit margins</li>
+                        </ul>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <script>
+        async function downloadPNG() {
+            const slide = document.getElementById('slide');
+            const canvas = await html2canvas(slide, {
+                backgroundColor: '#ffffff',
+                scale: 2,
+                logging: false
+            });
+            
+            const link = document.createElement('a');
+            link.href = canvas.toDataURL('image/png');
+            link.download = 'Revenue-Cost-Analysis.png';
+            link.click();
+        }
+    </script>
+</body>
+</html>

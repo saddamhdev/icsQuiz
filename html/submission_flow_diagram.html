@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Submission Flow Diagram</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+</head>
+<body style="margin: 0; padding: 20px; background: #f5f5f5; font-family: Arial, sans-serif;">
+    <div style="text-align: center; margin-bottom: 20px;">
+        <h1>Student Answer Submission Flow</h1>
+        <button onclick="downloadPNG()" style="padding: 10px 20px; font-size: 16px; background: #667eea; color: white; border: none; border-radius: 4px; cursor: pointer;">
+            📥 Download as PNG
+        </button>
+    </div>
+
+    <div id="diagram" style="background: white; padding: 50px; margin: 0 auto; width: fit-content; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
+        <svg width="1400" height="1600" style="display: block; margin: 0 auto;">
+            <!-- Define markers -->
+            <defs>
+                <marker id="arrowhead" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+                    <polygon points="0 0, 10 3, 0 6" fill="#333"/>
+                </marker>
+                <marker id="arrowhead-blue" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+                    <polygon points="0 0, 10 3, 0 6" fill="#3498db"/>
+                </marker>
+                <marker id="arrowhead-green" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+                    <polygon points="0 0, 10 3, 0 6" fill="#27ae60"/>
+                </marker>
+                <marker id="arrowhead-orange" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+                    <polygon points="0 0, 10 3, 0 6" fill="#e67e22"/>
+                </marker>
+                <marker id="arrowhead-red" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+                    <polygon points="0 0, 10 3, 0 6" fill="#e74c3c"/>
+                </marker>
+            </defs>
+
+            <!-- STUDENT DEVICE -->
+            <rect x="400" y="20" width="600" height="90" fill="#3498db" stroke="#2c3e50" stroke-width="3" rx="10"/>
+            <text x="700" y="55" text-anchor="middle" font-size="18" font-weight="bold" fill="white">📱 STUDENT DEVICE</text>
+            <text x="700" y="80" text-anchor="middle" font-size="13" fill="white">(Browser / Exam App)</text>
+
+            <!-- Arrow -->
+            <line x1="700" y1="110" x2="700" y2="150" stroke="#333" stroke-width="3" marker-end="url(#arrowhead)"/>
+            <text x="760" y="135" font-size="12" fill="#333" font-weight="bold">Submit Answer</text>
+            <text x="760" y="152" font-size="11" fill="#333">POST /exam/submit</text>
+
+            <!-- NGINX INGRESS -->
+            <rect x="400" y="150" width="600" height="80" fill="#e67e22" stroke="#2c3e50" stroke-width="3" rx="10"/>
+            <text x="700" y="190" text-anchor="middle" font-size="16" font-weight="bold" fill="white">⚙️ NGINX INGRESS</text>
+            <text x="700" y="212" text-anchor="middle" font-size="12" fill="white">Load Balancing • Rate Limiting</text>
+
+            <!-- Arrow -->
+            <line x1="700" y1="230" x2="700" y2="270" stroke="#333" stroke-width="3" marker-end="url(#arrowhead)"/>
+
+            <!-- SUBMISSION API SERVICE -->
+            <rect x="350" y="270" width="700" height="100" fill="#9b59b6" stroke="#2c3e50" stroke-width="3" rx="10"/>
+            <text x="700" y="305" text-anchor="middle" font-size="16" font-weight="bold" fill="white">🔧 SUBMISSION API SERVICE</text>
+            <text x="700" y="330" text-anchor="middle" font-size="12" fill="white">Spring Boot (Virtual Threads) • Validate Answer • Verify Token • Check Window</text>
+
+            <!-- Arrow -->
+            <line x1="700" y1="370" x2="700" y2="410" stroke="#333" stroke-width="3" marker-end="url(#arrowhead)"/>
+
+            <!-- REDIS RESULT ENGINE -->
+            <rect x="300" y="410" width="800" height="130" fill="#e74c3c" stroke="#2c3e50" stroke-width="3" rx="10"/>
+            <text x="700" y="445" text-anchor="middle" font-size="17" font-weight="bold" fill="white">💾 REDIS RESULT ENGINE (Real-time Scoring)</text>
+            <text x="700" y="472" text-anchor="middle" font-size="12" fill="white">📊 correct++ | ❌ wrong++ | ⭐ score++ | 📋 attempted++</text>
+            <text x="700" y="495" text-anchor="middle" font-size="12" fill="white">Live Cache • Instant Updates • Student Dashboard</text>
+
+            <!-- Arrow down -->
+            <line x1="700" y1="540" x2="700" y2="580" stroke="#27ae60" stroke-width="3" marker-end="url(#arrowhead-green)"/>
+            <text x="800" y="565" font-size="12" fill="#27ae60" font-weight="bold">⚡ Instant Result</text>
+
+            <!-- INSTANT RESPONSE BOX -->
+            <rect x="300" y="580" width="800" height="100" fill="#27ae60" stroke="#2c3e50" stroke-width="3" rx="10"/>
+            <text x="700" y="610" text-anchor="middle" font-size="15" font-weight="bold" fill="white">✅ INSTANT RESPONSE TO STUDENT</text>
+            <text x="700" y="635" text-anchor="middle" font-size="12" fill="white">"correct": true/false  |  "updatedScore": 37  |  "attempted": 40</text>
+            <text x="700" y="658" text-anchor="middle" font-size="12" fill="white">Response Time: &lt; 50ms ⚡</text>
+
+            <!-- Arrow to RabbitMQ -->
+            <line x1="700" y1="680" x2="700" y2="720" stroke="#e67e22" stroke-width="3" marker-end="url(#arrowhead-orange)"/>
+            <text x="800" y="705" font-size="12" fill="#e67e22" font-weight="bold">Async Publish</text>
+
+            <!-- RABBITMQ -->
+            <rect x="350" y="720" width="700" height="110" fill="#c0392b" stroke="#2c3e50" stroke-width="3" rx="10"/>
+            <text x="700" y="760" text-anchor="middle" font-size="17" font-weight="bold" fill="white">🐰 RABBITMQ (Message Bus)</text>
+            <text x="700" y="790" text-anchor="middle" font-size="13" fill="white">exchange: exam.submissions  |  Queue Stores Event</text>
+
+            <!-- Arrow to Workers -->
+            <line x1="700" y1="830" x2="700" y2="870" stroke="#333" stroke-width="3" marker-end="url(#arrowhead)"/>
+            <text x="770" y="855" font-size="12" fill="#333" font-weight="bold">Consume Messages</text>
+
+            <!-- SUBMISSION WORKERS -->
+            <rect x="300" y="870" width="800" height="120" fill="#2980b9" stroke="#2c3e50" stroke-width="3" rx="10"/>
+            <text x="700" y="905" text-anchor="middle" font-size="17" font-weight="bold" fill="white">⚡ SUBMISSION WORKER PODS</text>
+            <text x="700" y="932" text-anchor="middle" font-size="12" fill="white">Batch Processing 100-500 messages • Bulk Insert into PostgreSQL</text>
+            <text x="700" y="955" text-anchor="middle" font-size="12" fill="white">Throughput: 30k-50k writes/sec 🚀</text>
+
+            <!-- Arrow to DB -->
+            <line x1="700" y1="990" x2="700" y2="1030" stroke="#27ae60" stroke-width="3" marker-end="url(#arrowhead-green)"/>
+            <text x="820" y="1015" font-size="12" fill="#27ae60" font-weight="bold">Bulk Write</text>
+
+            <!-- POSTGRESQL -->
+            <rect x="350" y="1030" width="700" height="110" fill="#16a085" stroke="#2c3e50" stroke-width="3" rx="10"/>
+            <text x="700" y="1070" text-anchor="middle" font-size="17" font-weight="bold" fill="white">🗄️ POSTGRESQL DATABASE</text>
+            <text x="700" y="1100" text-anchor="middle" font-size="13" fill="white">Tables: exam_submission & exam_result • Persistent Storage</text>
+
+            <!-- Arrow down -->
+            <line x1="700" y1="1140" x2="700" y2="1180" stroke="#333" stroke-width="3" marker-end="url(#arrowhead)"/>
+
+            <!-- FETCH LIVE RESULT -->
+            <rect x="300" y="1180" width="800" height="100" fill="#3498db" stroke="#2c3e50" stroke-width="3" rx="10"/>
+            <text x="700" y="1215" text-anchor="middle" font-size="16" font-weight="bold" fill="white">📊 STUDENT FETCHES LIVE RESULT</text>
+            <text x="700" y="1242" text-anchor="middle" font-size="12" fill="white">GET /result/live → Redis (< 5ms)  |  Or Database Read</text>
+
+            <!-- Arrow down -->
+            <line x1="700" y1="1280" x2="700" y2="1320" stroke="#27ae60" stroke-width="3" marker-end="url(#arrowhead-green)"/>
+
+            <!-- FINAL RESULT -->
+            <rect x="300" y="1320" width="800" height="100" fill="#27ae60" stroke="#2c3e50" stroke-width="3" rx="10"/>
+            <text x="700" y="1355" text-anchor="middle" font-size="16" font-weight="bold" fill="white">✅ FINAL RESULT AFTER EXAM</text>
+            <text x="700" y="1382" text-anchor="middle" font-size="13" fill="white">Complete Result Summary → Dashboard  |  100% Data Durability</text>
+
+            <!-- Side annotations -->
+            <text x="100" y="480" font-size="13" font-weight="bold" fill="#e74c3c">REAL-TIME</text>
+            <text x="100" y="505" font-size="13" font-weight="bold" fill="#e74c3c">SCORING</text>
+            <text x="100" y="865" font-size="13" font-weight="bold" fill="#2980b9">ASYNC</text>
+            <text x="100" y="890" font-size="13" font-weight="bold" fill="#2980b9">PROCESSING</text>
+            <text x="100" y="1310" font-size="13" font-weight="bold" fill="#27ae60">PERSISTENCE</text>
+        </svg>
+    </div>
+
+    <script>
+        async function downloadPNG() {
+            const diagram = document.getElementById('diagram');
+            const canvas = await html2canvas(diagram, {
+                backgroundColor: '#ffffff',
+                scale: 2,
+                logging: false
+            });
+            
+            const link = document.createElement('a');
+            link.href = canvas.toDataURL('image/png');
+            link.download = 'Student-Submission-Flow-Diagram.png';
+            link.click();
+        }
+    </script>
+</body>
+</html>

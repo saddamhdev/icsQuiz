@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Infrastructure Pricing Slide</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+</head>
+<body style="margin: 0; padding: 20px; background: #f5f5f5; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;">
+    <div style="text-align: center; margin-bottom: 20px;">
+        <h1>Infrastructure Pricing Slide</h1>
+        <button onclick="downloadPNG()" style="padding: 10px 20px; font-size: 16px; background: #667eea; color: white; border: none; border-radius: 4px; cursor: pointer;">
+            📥 Download as PNG
+        </button>
+    </div>
+
+    <div id="slide" style="background: linear-gradient(135deg, #001a4d 0%, #003d99 50%, #001a4d 100%); padding: 60px; margin: 0 auto; width: fit-content; border-radius: 16px; box-shadow: 0 20px 60px rgba(0,0,0,0.3); max-width: 1400px; aspect-ratio: 16/9;">
+        
+        <div style="display: flex; flex-direction: column; height: 100%; justify-content: space-between;">
+            
+            <!-- Header -->
+            <div style="text-align: center; margin-bottom: 40px;">
+                <h1 style="font-size: 48px; color: #ffffff; margin: 0 0 10px 0; font-weight: 800;">💰 Infrastructure Pricing</h1>
+                <p style="font-size: 16px; color: #e0e0e0; margin: 0;">Cloud VPS Plans for 50,000+ Concurrent Students</p>
+            </div>
+
+            <!-- Pricing Cards Grid -->
+            <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 25px; flex: 1; margin-bottom: 30px;">
+                
+                <!-- VPS 30 - Minimum (Combines multiple plans) -->
+                <div style="background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%); border-radius: 14px; padding: 30px; border: 2px solid #e0e0e0; box-shadow: 0 8px 16px rgba(0,0,0,0.15); position: relative; overflow: hidden;">
+                    <div style="font-size: 13px; color: #666666; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 15px; font-weight: 600;">Budget Setup (Combined)</div>
+                    <div style="font-size: 24px; font-weight: 700; color: #333333; margin-bottom: 8px;">CLOUD VPS 30+20</div>
+                    <div style="font-size: 12px; color: #999999; margin-bottom: 15px; font-style: italic;">2 Smaller Instances</div>
+                    
+                    <div style="margin-bottom: 20px;">
+                        <div style="font-size: 11px; color: #999999; text-decoration: line-through; margin-bottom: 5px;">$40.00</div>
+                        <div style="display: flex; align-items: baseline; gap: 5px;">
+                            <span style="font-size: 28px; font-weight: 800; color: #e74c3c;">$32</span>
+                            <span style="font-size: 16px; font-weight: 600; color: #333333;">.80 /month</span>
+                        </div>
+                    </div>
+
+                    <button style="width: 100%; background: linear-gradient(135deg, #3498db 0%, #2980b9 100%); color: white; border: none; border-radius: 8px; padding: 12px; font-weight: 600; font-size: 14px; cursor: pointer; margin-bottom: 20px;">Configure</button>
+
+                    <ul style="list-style: none; margin: 0; padding: 0; font-size: 13px; color: #333333; line-height: 2;">
+                        <li style="padding-bottom: 10px; border-bottom: 1px solid #eeeeee;">✓ 14 vCPU Cores (combined)</li>
+                        <li style="padding-bottom: 10px; border-bottom: 1px solid #eeeeee;">✓ 32 GB RAM (combined)</li>
+                        <li style="padding-bottom: 10px; border-bottom: 1px solid #eeeeee;">✓ 300 GB NVMe SSD</li>
+                        <li style="padding-bottom: 10px; border-bottom: 1px solid #eeeeee;">✓ 900 Mbit/s Port</li>
+                        <li>✓ Unlimited Traffic</li>
+                    </ul>
+                </div>
+
+                <!-- VPS 40 - Recommended (Featured) -->
+                <div style="background: linear-gradient(135deg, #ff6b6b 0%, #ee5a6f 100%); border-radius: 14px; padding: 30px; border: 3px solid #ff6b6b; box-shadow: 0 12px 24px rgba(255, 107, 107, 0.4); position: relative; transform: scale(1.05); z-index: 10;">
+                    <div style="position: absolute; top: -12px; right: 20px; background: linear-gradient(135deg, #ff9800 0%, #f57c00 100%); color: white; padding: 6px 16px; border-radius: 20px; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px;">For 50k Students</div>
+                    
+                    <div style="font-size: 13px; color: #ffffff; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 15px; font-weight: 600; margin-top: 15px;">Single Instance Setup</div>
+                    <div style="font-size: 24px; font-weight: 700; color: #ffffff; margin-bottom: 8px;">CLOUD VPS 40</div>
+                    
+                    <div style="margin-bottom: 20px;">
+                        <div style="font-size: 11px; color: rgba(255,255,255,0.8); text-decoration: line-through; margin-bottom: 5px;">$26.00</div>
+                        <div style="display: flex; align-items: baseline; gap: 5px;">
+                            <span style="font-size: 32px; font-weight: 800; color: #ffffff;">$20</span>
+                            <span style="font-size: 16px; font-weight: 600; color: #ffffff;">.80 /month</span>
+                        </div>
+                    </div>
+
+                    <button style="width: 100%; background: #ffffff; color: #ff6b6b; border: none; border-radius: 8px; padding: 12px; font-weight: 700; font-size: 14px; cursor: pointer; margin-bottom: 20px;">Configure</button>
+
+                    <ul style="list-style: none; margin: 0; padding: 0; font-size: 13px; color: #ffffff; line-height: 2;">
+                        <li style="padding-bottom: 10px; border-bottom: 1px solid rgba(255,255,255,0.2);">✓ 12 vCPU Cores</li>
+                        <li style="padding-bottom: 10px; border-bottom: 1px solid rgba(255,255,255,0.2);">✓ 48 GB RAM</li>
+                        <li style="padding-bottom: 10px; border-bottom: 1px solid rgba(255,255,255,0.2);">✓ 250 GB NVMe SSD</li>
+                        <li style="padding-bottom: 10px; border-bottom: 1px solid rgba(255,255,255,0.2);">✓ 800 Mbit/s Port</li>
+                        <li>✓ Unlimited Traffic</li>
+                    </ul>
+                </div>
+
+                <!-- VPS 50 - Premium Setup -->
+                <div style="background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%); border-radius: 14px; padding: 30px; border: 2px solid #e0e0e0; box-shadow: 0 8px 16px rgba(0,0,0,0.15); position: relative; overflow: hidden;">
+                    <div style="font-size: 13px; color: #666666; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 15px; font-weight: 600;">Premium Setup</div>
+                    <div style="font-size: 24px; font-weight: 700; color: #333333; margin-bottom: 8px;">CLOUD VPS 50</div>
+                    <div style="font-size: 12px; color: #999999; margin-bottom: 15px; font-style: italic;">High Availability</div>
+                    
+                    <div style="margin-bottom: 20px;">
+                        <div style="font-size: 11px; color: #999999; text-decoration: line-through; margin-bottom: 5px;">$46.00</div>
+                        <div style="display: flex; align-items: baseline; gap: 5px;">
+                            <span style="font-size: 28px; font-weight: 800; color: #2ecc71;">$36</span>
+                            <span style="font-size: 16px; font-weight: 600; color: #333333;">.80 /month</span>
+                        </div>
+                    </div>
+
+                    <button style="width: 100%; background: linear-gradient(135deg, #2ecc71 0%, #27ae60 100%); color: white; border: none; border-radius: 8px; padding: 12px; font-weight: 600; font-size: 14px; cursor: pointer; margin-bottom: 20px;">Configure</button>
+
+                    <ul style="list-style: none; margin: 0; padding: 0; font-size: 13px; color: #333333; line-height: 2;">
+                        <li style="padding-bottom: 10px; border-bottom: 1px solid #eeeeee;">✓ 16 vCPU Cores</li>
+                        <li style="padding-bottom: 10px; border-bottom: 1px solid #eeeeee;">✓ 64 GB RAM</li>
+                        <li style="padding-bottom: 10px; border-bottom: 1px solid #eeeeee;">✓ 300 GB NVMe SSD</li>
+                        <li style="padding-bottom: 10px; border-bottom: 1px solid #eeeeee;">✓ 1 Gbit/s Port</li>
+                        <li>✓ Unlimited Traffic</li>
+                    </ul>
+                </div>
+
+            </div>
+
+            <!-- Bottom Summary -->
+            <div style="background: linear-gradient(90deg, rgba(52, 152, 219, 0.2) 0%, rgba(46, 204, 113, 0.2) 100%); border-radius: 12px; padding: 25px; border: 1px solid rgba(52, 152, 219, 0.3);">
+                <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 30px; text-align: center;">
+                    
+                    <div>
+                        <div style="font-size: 14px; font-weight: 700; color: #ffffff; margin-bottom: 8px;">📊 Total Monthly Cost</div>
+                        <div style="font-size: 36px; font-weight: 800; color: #ff6b6b;">~$32.80</div>
+                        <div style="font-size: 12px; color: #e0e0e0; margin-top: 5px;">VPS 30+20 Combined (30GB RAM)</div>
+                    </div>
+
+                    <div>
+                        <div style="font-size: 14px; font-weight: 700; color: #ffffff; margin-bottom: 8px;">⭐ Estimated Annual</div>
+                        <div style="font-size: 36px; font-weight: 800; color: #2ecc71;">~$394</div>
+                        <div style="font-size: 12px; color: #e0e0e0; margin-top: 5px;">Infrastructure cost/year</div>
+                    </div>
+
+                    <div>
+                        <div style="font-size: 14px; font-weight: 700; color: #ffffff; margin-bottom: 8px;">👥 Per Student Cost</div>
+                        <div style="font-size: 36px; font-weight: 800; color: #64c8ff;">~$0.0006</div>
+                        <div style="font-size: 12px; color: #e0e0e0; margin-top: 5px;">Per exam session</div>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <script>
+        async function downloadPNG() {
+            const slide = document.getElementById('slide');
+            const canvas = await html2canvas(slide, {
+                backgroundColor: '#ffffff',
+                scale: 2,
+                logging: false
+            });
+            
+            const link = document.createElement('a');
+            link.href = canvas.toDataURL('image/png');
+            link.download = 'Infrastructure-Pricing.png';
+            link.click();
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ER Diagram Slide</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+</head>
+<body style="margin: 0; padding: 20px; background: #f5f5f5; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;">
+    <div style="text-align: center; margin-bottom: 20px;">
+        <h1>ER Diagram Slide - Complete Database Schema</h1>
+        <button onclick="downloadPNG()" style="padding: 10px 20px; font-size: 16px; background: #667eea; color: white; border: none; border-radius: 4px; cursor: pointer;">
+            📥 Download as PNG
+        </button>
+    </div>
+
+    <div id="slide" style="background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 50%, #ffffff 100%); padding: 60px; margin: 0 auto; width: fit-content; border-radius: 16px; box-shadow: 0 20px 60px rgba(0,0,0,0.1); max-width: 1400px; aspect-ratio: 16/9;">
+        
+        <div style="display: flex; flex-direction: column; height: 100%; justify-content: space-between;">
+            
+            <!-- Header -->
+            <div style="text-align: center; margin-bottom: 30px;">
+                <h1 style="font-size: 48px; color: #1a1a1a; margin: 0 0 10px 0; font-weight: 800;">🗄️ Complete Database Schema</h1>
+                <p style="font-size: 16px; color: #555555; margin: 0;">ICS Quiz System - 7 Subsystems, 17 Tables</p>
+            </div>
+
+            <!-- Tables by Category Grid -->
+            <div style="display: grid; grid-template-columns: repeat(7, 1fr); gap: 15px; flex: 1; margin-bottom: 30px; font-size: 11px;">
+                
+                <!-- 👥 User Management -->
+                <div style="background: linear-gradient(135deg, #e1f5ff 0%, #b3e5fc 100%); border-left: 4px solid #0277bd; border-radius: 8px; padding: 12px;">
+                    <div style="font-weight: 700; color: #0277bd; margin-bottom: 8px;">👥 USER MGMT</div>
+                    <div style="background: white; border-radius: 4px; padding: 8px; margin-bottom: 8px; border-left: 2px solid #0277bd;">
+                        <div style="font-weight: 600; color: #333;">USERS</div>
+                        <div style="color: #666; font-size: 10px;">user_id, username<br/>password, role<br/>status, created_at</div>
+                    </div>
+                    <div style="background: white; border-radius: 4px; padding: 8px; border-left: 2px solid #0277bd;">
+                        <div style="font-weight: 600; color: #333;">ADMIN_LOGS</div>
+                        <div style="color: #666; font-size: 10px;">log_id, action<br/>entity_type, admin_id</div>
+                    </div>
+                </div>
+
+                <!-- 📦 Package Management -->
+                <div style="background: linear-gradient(135deg, #f3e5f5 0%, #e1bee7 100%); border-left: 4px solid #6a1b9a; border-radius: 8px; padding: 12px;">
+                    <div style="font-weight: 700; color: #6a1b9a; margin-bottom: 8px;">📦 PACKAGES</div>
+                    <div style="background: white; border-radius: 4px; padding: 8px; margin-bottom: 8px; border-left: 2px solid #6a1b9a;">
+                        <div style="font-weight: 600; color: #333;">PACKAGES</div>
+                        <div style="color: #666; font-size: 10px;">package_id, name<br/>duration, pass_mark<br/>max_concurrent</div>
+                    </div>
+                    <div style="background: white; border-radius: 4px; padding: 8px; margin-bottom: 8px; border-left: 2px solid #6a1b9a;">
+                        <div style="font-weight: 600; color: #333;">CATEGORIES</div>
+                        <div style="color: #666; font-size: 10px;">category_id, name<br/>total_questions</div>
+                    </div>
+                    <div style="background: white; border-radius: 4px; padding: 8px; border-left: 2px solid #6a1b9a;">
+                        <div style="font-weight: 600; color: #333;">ANALYSIS</div>
+                        <div style="color: #666; font-size: 10px;">total_examinee<br/>passed, failed</div>
+                    </div>
+                </div>
+
+                <!-- ❓ Question Management -->
+                <div style="background: linear-gradient(135deg, #fff3e0 0%, #ffe0b2 100%); border-left: 4px solid #e65100; border-radius: 8px; padding: 12px;">
+                    <div style="font-weight: 700; color: #e65100; margin-bottom: 8px;">❓ QUESTIONS</div>
+                    <div style="background: white; border-radius: 4px; padding: 8px; margin-bottom: 8px; border-left: 2px solid #e65100;">
+                        <div style="font-weight: 600; color: #333;">QUESTIONS</div>
+                        <div style="color: #666; font-size: 10px;">question_id, text<br/>marks, negative_mark</div>
+                    </div>
+                    <div style="background: white; border-radius: 4px; padding: 8px; margin-bottom: 8px; border-left: 2px solid #e65100;">
+                        <div style="font-weight: 600; color: #333;">Q_OPTIONS</div>
+                        <div style="color: #666; font-size: 10px;">option_id, text<br/>is_correct</div>
+                    </div>
+                    <div style="background: white; border-radius: 4px; padding: 8px; border-left: 2px solid #e65100;">
+                        <div style="font-weight: 600; color: #333;">Q_COLLECTION</div>
+                        <div style="color: #666; font-size: 10px;">question_id, option_id</div>
+                    </div>
+                </div>
+
+                <!-- 📝 Exam Management -->
+                <div style="background: linear-gradient(135deg, #f1f8e9 0%, #dcedc8 100%); border-left: 4px solid #558b2f; border-radius: 8px; padding: 12px;">
+                    <div style="font-weight: 700; color: #558b2f; margin-bottom: 8px;">📝 EXAMS</div>
+                    <div style="background: white; border-radius: 4px; padding: 8px; margin-bottom: 8px; border-left: 2px solid #558b2f;">
+                        <div style="font-weight: 600; color: #333;">EXAMS</div>
+                        <div style="color: #666; font-size: 10px;">exam_id, name<br/>status, duration</div>
+                    </div>
+                    <div style="background: white; border-radius: 4px; padding: 8px; margin-bottom: 8px; border-left: 2px solid #558b2f;">
+                        <div style="font-weight: 600; color: #333;">USER_ANSWERS</div>
+                        <div style="color: #666; font-size: 10px;">answer_id, is_correct<br/>marks_obtained</div>
+                    </div>
+                    <div style="background: white; border-radius: 4px; padding: 8px; border-left: 2px solid #558b2f;">
+                        <div style="font-weight: 600; color: #333;">RESULTS</div>
+                        <div style="color: #666; font-size: 10px;">total_questions<br/>percentage, marks</div>
+                    </div>
+                </div>
+
+                <!-- 📊 Collections -->
+                <div style="background: linear-gradient(135deg, #fce4ec 0%, #f8bbd0 100%); border-left: 4px solid #c2185b; border-radius: 8px; padding: 12px;">
+                    <div style="font-weight: 700; color: #c2185b; margin-bottom: 8px;">📊 COLLECTIONS</div>
+                    <div style="background: white; border-radius: 4px; padding: 8px; margin-bottom: 8px; border-left: 2px solid #c2185b;">
+                        <div style="font-weight: 600; color: #333;">USER_SUBMITTED</div>
+                        <div style="color: #666; font-size: 10px;">answer_id, option_id</div>
+                    </div>
+                    <div style="background: white; border-radius: 4px; padding: 8px; margin-bottom: 8px; border-left: 2px solid #c2185b;">
+                        <div style="font-weight: 600; color: #333;">USER_SELECTED</div>
+                        <div style="color: #666; font-size: 10px;">answer_id, option_text</div>
+                    </div>
+                    <div style="background: white; border-radius: 4px; padding: 8px; border-left: 2px solid #c2185b;">
+                        <div style="font-weight: 600; color: #333;">ANSWER_DETAILS</div>
+                        <div style="color: #666; font-size: 10px;">answer_id, answer_text</div>
+                    </div>
+                </div>
+
+                <!-- 💬 Communication -->
+                <div style="background: linear-gradient(135deg, #ede7f6 0%, #ddd6f3 100%); border-left: 4px solid #512da8; border-radius: 8px; padding: 12px;">
+                    <div style="font-weight: 700; color: #512da8; margin-bottom: 8px;">💬 COMMUNICATION</div>
+                    <div style="background: white; border-radius: 4px; padding: 8px; margin-bottom: 8px; border-left: 2px solid #512da8;">
+                        <div style="font-weight: 600; color: #333;">MESSAGES</div>
+                        <div style="color: #666; font-size: 10px;">message_id, subject<br/>sender_id, recipient_id</div>
+                    </div>
+                    <div style="background: white; border-radius: 4px; padding: 8px; border-left: 2px solid #512da8;">
+                        <div style="font-weight: 600; color: #333;">NOTIFICATIONS</div>
+                        <div style="color: #666; font-size: 10px;">notification_id, type<br/>title, description</div>
+                    </div>
+                </div>
+
+                <!-- 🔐 Access Management -->
+                <div style="background: linear-gradient(135deg, #e0f2f1 0%, #b2dfdb 100%); border-left: 4px solid #004d40; border-radius: 8px; padding: 12px;">
+                    <div style="font-weight: 700; color: #004d40; margin-bottom: 8px;">🔐 ACCESS</div>
+                    <div style="background: white; border-radius: 4px; padding: 8px; margin-bottom: 8px; border-left: 2px solid #004d40;">
+                        <div style="font-weight: 600; color: #333;">USER_PACKAGES</div>
+                        <div style="color: #666; font-size: 10px;">user_package_id<br/>access_type</div>
+                    </div>
+                    <div style="background: white; border-radius: 4px; padding: 8px; border-left: 2px solid #004d40;">
+                        <div style="font-weight: 600; color: #333;">INSTRUCTIONS</div>
+                        <div style="color: #666; font-size: 10px;">instruction_id<br/>instruction_text</div>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- Bottom Summary -->
+            <div style="background: linear-gradient(90deg, #e3f2fd 0%, #f3e5f5 50%, #e0f2f1 100%); border-radius: 12px; padding: 20px; border: 2px solid #0277bd;">
+                <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; text-align: center;">
+                    
+                    <div>
+                        <div style="font-size: 28px; font-weight: 800; color: #0277bd;">17</div>
+                        <div style="font-size: 12px; color: #333; font-weight: 600; margin-top: 5px; text-transform: uppercase;">Total Tables</div>
+                    </div>
+
+                    <div>
+                        <div style="font-size: 28px; font-weight: 800; color: #6a1b9a;">7</div>
+                        <div style="font-size: 12px; color: #333; font-weight: 600; margin-top: 5px; text-transform: uppercase;">Subsystems</div>
+                    </div>
+
+                    <div>
+                        <div style="font-size: 28px; font-weight: 800; color: #558b2f;">100+</div>
+                        <div style="font-size: 12px; color: #333; font-weight: 600; margin-top: 5px; text-transform: uppercase;">Relationships</div>
+                    </div>
+
+                    <div>
+                        <div style="font-size: 28px; font-weight: 800; color: #004d40;">✓</div>
+                        <div style="font-size: 12px; color: #333; font-weight: 600; margin-top: 5px; text-transform: uppercase;">Fully Normalized</div>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <script>
+        async function downloadPNG() {
+            const slide = document.getElementById('slide');
+            const canvas = await html2canvas(slide, {
+                backgroundColor: '#ffffff',
+                scale: 2,
+                logging: false
+            });
+            
+            const link = document.createElement('a');
+            link.href = canvas.toDataURL('image/png');
+            link.download = 'ER-Diagram-Complete.png';
+            link.click();
+        }
+    </script>
+</body>
+</html>

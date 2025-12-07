@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login Flow Diagram</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+</head>
+<body style="margin: 0; padding: 20px; background: #f5f5f5; font-family: Arial, sans-serif;">
+    <div style="text-align: center; margin-bottom: 20px;">
+        <h1>User Login Flow Architecture</h1>
+        <button onclick="downloadPNG()" style="padding: 10px 20px; font-size: 16px; background: #667eea; color: white; border: none; border-radius: 4px; cursor: pointer;">
+            📥 Download as PNG
+        </button>
+    </div>
+
+    <div id="diagram" style="background: white; padding: 50px; margin: 0 auto; width: fit-content; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
+        <svg width="1400" height="1500" style="display: block; margin: 0 auto;">
+            <!-- Define markers -->
+            <defs>
+                <marker id="arrowhead" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+                    <polygon points="0 0, 10 3, 0 6" fill="#333"/>
+                </marker>
+                <marker id="arrowhead-red" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+                    <polygon points="0 0, 10 3, 0 6" fill="#e74c3c"/>
+                </marker>
+                <marker id="arrowhead-green" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+                    <polygon points="0 0, 10 3, 0 6" fill="#27ae60"/>
+                </marker>
+                <marker id="arrowhead-orange" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+                    <polygon points="0 0, 10 3, 0 6" fill="#f39c12"/>
+                </marker>
+            </defs>
+
+            <!-- USER CLIENT -->
+            <rect x="450" y="20" width="500" height="80" fill="#3498db" stroke="#2c3e50" stroke-width="3" rx="10"/>
+            <text x="700" y="55" text-anchor="middle" font-size="18" font-weight="bold" fill="white">👤 USER CLIENT</text>
+            <text x="700" y="78" text-anchor="middle" font-size="13" fill="white">(Browser / App / Exam Device)</text>
+
+            <!-- Arrow down -->
+            <line x1="700" y1="100" x2="700" y2="140" stroke="#333" stroke-width="3" marker-end="url(#arrowhead)"/>
+            <text x="750" y="125" font-size="12" fill="#333" font-weight="bold">HTTPS/API</text>
+
+            <!-- CDN -->
+            <rect x="400" y="140" width="600" height="110" fill="#2ecc71" stroke="#2c3e50" stroke-width="3" rx="10"/>
+            <text x="700" y="175" text-anchor="middle" font-size="17" font-weight="bold" fill="white">🌍 CDN (Cloudflare)</text>
+            <text x="700" y="200" text-anchor="middle" font-size="12" fill="white">Caches static • Reduces latency • Offloads traffic</text>
+            <text x="700" y="220" text-anchor="middle" font-size="12" fill="white">(Cache Hit → Fast Response)</text>
+
+            <!-- Arrow -->
+            <line x1="700" y1="250" x2="700" y2="290" stroke="#e74c3c" stroke-width="3" marker-end="url(#arrowhead-red)"/>
+            <text x="770" y="275" font-size="12" fill="#e74c3c" font-weight="bold">CDN MISS</text>
+
+            <!-- NGINX -->
+            <rect x="400" y="290" width="600" height="110" fill="#e67e22" stroke="#2c3e50" stroke-width="3" rx="10"/>
+            <text x="700" y="325" text-anchor="middle" font-size="17" font-weight="bold" fill="white">⚙️ Ingress Controller (NGINX)</text>
+            <text x="700" y="350" text-anchor="middle" font-size="12" fill="white">Rate limit • SSL termination • Load balancing</text>
+
+            <!-- Arrow -->
+            <line x1="700" y1="400" x2="700" y2="440" stroke="#333" stroke-width="3" marker-end="url(#arrowhead)"/>
+            <text x="780" y="425" font-size="12" fill="#333" font-weight="bold">Round-Robin</text>
+
+            <!-- Service Label -->
+            <rect x="400" y="440" width="600" height="60" fill="#9b59b6" stroke="#2c3e50" stroke-width="3" rx="10"/>
+            <text x="700" y="478" text-anchor="middle" font-size="15" font-weight="bold" fill="white">🔧 icsquiz-user-service (ClusterIP)</text>
+
+            <!-- Arrow to Pods -->
+            <line x1="700" y1="500" x2="700" y2="540" stroke="#333" stroke-width="3" marker-end="url(#arrowhead)"/>
+
+            <!-- Spring Boot Pods Row -->
+            <rect x="80" y="540" width="180" height="130" fill="#3498db" stroke="#2c3e50" stroke-width="2" rx="8"/>
+            <text x="170" y="570" text-anchor="middle" font-size="13" font-weight="bold" fill="white">Pod #1</text>
+            <text x="170" y="593" text-anchor="middle" font-size="11" fill="white">Spring Boot</text>
+            <text x="170" y="613" text-anchor="middle" font-size="11" fill="white">Virtual Threads</text>
+            <text x="170" y="633" text-anchor="middle" font-size="10" fill="white">(Login Handler)</text>
+
+            <rect x="350" y="540" width="180" height="130" fill="#3498db" stroke="#2c3e50" stroke-width="2" rx="8"/>
+            <text x="440" y="570" text-anchor="middle" font-size="13" font-weight="bold" fill="white">Pod #2</text>
+            <text x="440" y="593" text-anchor="middle" font-size="11" fill="white">Spring Boot</text>
+            <text x="440" y="613" text-anchor="middle" font-size="11" fill="white">Virtual Threads</text>
+            <text x="440" y="633" text-anchor="middle" font-size="10" fill="white">(Login Handler)</text>
+
+            <rect x="620" y="540" width="180" height="130" fill="#3498db" stroke="#2c3e50" stroke-width="2" rx="8"/>
+            <text x="710" y="570" text-anchor="middle" font-size="13" font-weight="bold" fill="white">Pod #3</text>
+            <text x="710" y="593" text-anchor="middle" font-size="11" fill="white">Spring Boot</text>
+            <text x="710" y="613" text-anchor="middle" font-size="11" fill="white">Virtual Threads</text>
+            <text x="710" y="633" text-anchor="middle" font-size="10" fill="white">(Login Handler)</text>
+
+            <rect x="890" y="540" width="180" height="130" fill="#3498db" stroke="#2c3e50" stroke-width="2" rx="8"/>
+            <text x="980" y="570" text-anchor="middle" font-size="13" font-weight="bold" fill="white">Pod #N</text>
+            <text x="980" y="593" text-anchor="middle" font-size="11" fill="white">Spring Boot</text>
+            <text x="980" y="613" text-anchor="middle" font-size="11" fill="white">Virtual Threads</text>
+            <text x="980" y="633" text-anchor="middle" font-size="10" fill="white">(Login Handler)</text>
+
+            <rect x="1160" y="540" width="180" height="130" fill="#3498db" stroke="#2c3e50" stroke-width="2" rx="8"/>
+            <text x="1250" y="570" text-anchor="middle" font-size="13" font-weight="bold" fill="white">Pod +N</text>
+            <text x="1250" y="593" text-anchor="middle" font-size="11" fill="white">Spring Boot</text>
+            <text x="1250" y="613" text-anchor="middle" font-size="11" fill="white">Virtual Threads</text>
+            <text x="1250" y="633" text-anchor="middle" font-size="10" fill="white">(High Concurrency)</text>
+
+            <!-- Arrows from Pods to Redis -->
+            <line x1="170" y1="670" x2="170" y2="710" stroke="#3498db" stroke-width="2" marker-end="url(#arrowhead)"/>
+            <line x1="440" y1="670" x2="440" y2="710" stroke="#3498db" stroke-width="2" marker-end="url(#arrowhead)"/>
+            <line x1="710" y1="670" x2="710" y2="710" stroke="#3498db" stroke-width="2" marker-end="url(#arrowhead)"/>
+            <line x1="980" y1="670" x2="980" y2="710" stroke="#3498db" stroke-width="2" marker-end="url(#arrowhead)"/>
+            <line x1="1250" y1="670" x2="1250" y2="710" stroke="#3498db" stroke-width="2" marker-end="url(#arrowhead)"/>
+
+            <!-- REDIS CACHE -->
+            <rect x="300" y="710" width="800" height="110" fill="#e74c3c" stroke="#2c3e50" stroke-width="3" rx="10"/>
+            <text x="700" y="745" text-anchor="middle" font-size="17" font-weight="bold" fill="white">💾 Redis Cache (Get/Set)</text>
+            <text x="700" y="770" text-anchor="middle" font-size="12" fill="white">Key: user::{id/email/mobile}  |  Cache Hit → Fast Login ⚡</text>
+
+            <!-- Cache Miss Arrow -->
+            <line x1="300" y1="820" x2="200" y2="860" stroke="#e74c3c" stroke-width="3" marker-end="url(#arrowhead-red)"/>
+            <text x="230" y="845" font-size="11" fill="#e74c3c" font-weight="bold">Cache Miss</text>
+
+            <!-- PostgreSQL -->
+            <rect x="80" y="860" width="450" height="120" fill="#16a085" stroke="#2c3e50" stroke-width="3" rx="10"/>
+            <text x="305" y="895" text-anchor="middle" font-size="16" font-weight="bold" fill="white">🗄️ PostgreSQL (User Table)</text>
+            <text x="305" y="920" text-anchor="middle" font-size="12" fill="white">Check credentials • status • roles</text>
+            <text x="305" y="943" text-anchor="middle" font-size="12" fill="white">Store in Redis for next login</text>
+
+            <!-- Redis Write Arrow -->
+            <line x1="450" y1="860" x2="600" y2="820" stroke="#27ae60" stroke-width="3" marker-end="url(#arrowhead-green)"/>
+            <text x="560" y="835" font-size="11" fill="#27ae60" font-weight="bold">Write Cache</text>
+
+            <!-- Create Login Event -->
+            <rect x="750" y="860" width="450" height="120" fill="#f39c12" stroke="#2c3e50" stroke-width="3" rx="10"/>
+            <text x="975" y="895" text-anchor="middle" font-size="16" font-weight="bold" fill="white">📝 Create Login Event (JSON)</text>
+            <text x="975" y="920" text-anchor="middle" font-size="12" fill="white">User ID • Timestamp • IP • Device Info</text>
+
+            <!-- Event to RabbitMQ -->
+            <line x1="975" y1="980" x2="975" y2="1020" stroke="#f39c12" stroke-width="3" marker-end="url(#arrowhead-orange)"/>
+
+            <!-- RABBITMQ -->
+            <rect x="700" y="1020" width="550" height="110" fill="#c0392b" stroke="#2c3e50" stroke-width="3" rx="10"/>
+            <text x="975" y="1055" text-anchor="middle" font-size="17" font-weight="bold" fill="white">🐰 RabbitMQ (Message Bus)</text>
+            <text x="975" y="1080" text-anchor="middle" font-size="13" fill="white">exchange: login.events</text>
+
+            <!-- Consumer Arrows -->
+            <line x1="750" y1="1130" x2="250" y2="1190" stroke="#333" stroke-width="3" marker-end="url(#arrowhead)"/>
+            <line x1="900" y1="1130" x2="700" y2="1190" stroke="#333" stroke-width="3" marker-end="url(#arrowhead)"/>
+            <line x1="1050" y1="1130" x2="1150" y2="1190" stroke="#333" stroke-width="3" marker-end="url(#arrowhead)"/>
+
+            <text x="975" y="1160" text-anchor="middle" font-size="12" fill="#333" font-weight="bold">Consumers process events:</text>
+
+            <!-- Consumer Services -->
+            <rect x="100" y="1190" width="180" height="110" fill="#8e44ad" stroke="#2c3e50" stroke-width="2" rx="8"/>
+            <text x="190" y="1220" text-anchor="middle" font-size="13" font-weight="bold" fill="white">📊 Analytics</text>
+            <text x="190" y="1245" text-anchor="middle" font-size="11" fill="white">Store login</text>
+            <text x="190" y="1265" text-anchor="middle" font-size="11" fill="white">analytics log</text>
+
+            <rect x="580" y="1190" width="180" height="110" fill="#8e44ad" stroke="#2c3e50" stroke-width="2" rx="8"/>
+            <text x="670" y="1220" text-anchor="middle" font-size="13" font-weight="bold" fill="white">📝 Logs Service</text>
+            <text x="670" y="1245" text-anchor="middle" font-size="11" fill="white">Write database</text>
+            <text x="670" y="1265" text-anchor="middle" font-size="11" fill="white">audit logs</text>
+
+            <rect x="1060" y="1190" width="180" height="110" fill="#8e44ad" stroke="#2c3e50" stroke-width="2" rx="8"/>
+            <text x="1150" y="1220" text-anchor="middle" font-size="13" font-weight="bold" fill="white">🔔 Notification</text>
+            <text x="1150" y="1245" text-anchor="middle" font-size="11" fill="white">Send Email/SMS</text>
+            <text x="1150" y="1265" text-anchor="middle" font-size="11" fill="white">alert</text>
+
+            <!-- Response back to client -->
+            <line x1="700" y1="1300" x2="700" y2="1360" stroke="#27ae60" stroke-width="3" marker-end="url(#arrowhead-green)"/>
+            <text x="760" y="1335" font-size="12" fill="#27ae60" font-weight="bold">Login Success/Fail Response</text>
+
+            <!-- Bottom response box -->
+            <rect x="450" y="1360" width="500" height="60" fill="#27ae60" stroke="#2c3e50" stroke-width="3" rx="10"/>
+            <text x="700" y="1395" text-anchor="middle" font-size="15" font-weight="bold" fill="white">✅ RESPONSE → CLIENT</text>
+        </svg>
+    </div>
+
+    <script>
+        async function downloadPNG() {
+            const diagram = document.getElementById('diagram');
+            const canvas = await html2canvas(diagram, {
+                backgroundColor: '#ffffff',
+                scale: 2,
+                logging: false
+            });
+            
+            const link = document.createElement('a');
+            link.href = canvas.toDataURL('image/png');
+            link.download = 'User-Login-Flow-Diagram.png';
+            link.click();
+        }
+    </script>
+</body>
+</html>

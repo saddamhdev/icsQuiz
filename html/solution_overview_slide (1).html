@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Solution Overview Slide</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .slide {
+            width: 100%;
+            max-width: 1400px;
+            aspect-ratio: 16/9;
+            background: white;
+            border-radius: 16px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            padding: 60px;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+        
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+        
+        .header h1 {
+            font-size: 48px;
+            color: #667eea;
+            margin-bottom: 10px;
+            font-weight: 800;
+        }
+        
+        .header p {
+            font-size: 18px;
+            color: #666;
+        }
+        
+        .content {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 30px;
+            flex: 1;
+            margin-bottom: 30px;
+        }
+        
+        .card {
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            border-radius: 12px;
+            padding: 25px;
+            border-left: 5px solid #667eea;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+            transition: transform 0.3s ease;
+        }
+        
+        .card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .card.problem {
+            border-left-color: #e74c3c;
+            background: linear-gradient(135deg, #fef5e7 0%, #fadbd8 100%);
+        }
+        
+        .card.solution {
+            border-left-color: #27ae60;
+            background: linear-gradient(135deg, #eafaf1 0%, #d5f4e6 100%);
+        }
+        
+        .card.benefits {
+            border-left-color: #3498db;
+            background: linear-gradient(135deg, #eaf2f8 0%, #d6eaf8 100%);
+        }
+        
+        .card h3 {
+            font-size: 22px;
+            margin-bottom: 15px;
+            color: #2c3e50;
+        }
+        
+        .card ul {
+            list-style: none;
+            font-size: 14px;
+            line-height: 1.8;
+            color: #34495e;
+        }
+        
+        .card li {
+            margin-bottom: 10px;
+            padding-left: 20px;
+            position: relative;
+        }
+        
+        .card.problem li:before {
+            content: "✗";
+            position: absolute;
+            left: 0;
+            color: #e74c3c;
+            font-weight: bold;
+        }
+        
+        .card.solution li:before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            color: #27ae60;
+            font-weight: bold;
+        }
+        
+        .card.benefits li:before {
+            content: "★";
+            position: absolute;
+            left: 0;
+            color: #3498db;
+            font-weight: bold;
+        }
+        
+        .architecture-mini {
+            background: #f8f9fa;
+            border-radius: 12px;
+            padding: 20px;
+            border: 2px solid #e9ecef;
+            text-align: center;
+            margin-top: 20px;
+        }
+        
+        .architecture-mini h4 {
+            color: #667eea;
+            margin-bottom: 15px;
+            font-size: 16px;
+        }
+        
+        .flow {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 15px;
+            flex-wrap: wrap;
+            font-size: 13px;
+            color: #555;
+        }
+        
+        .flow-item {
+            background: white;
+            padding: 8px 12px;
+            border-radius: 6px;
+            border: 1px solid #ddd;
+            font-weight: 500;
+        }
+        
+        .flow-arrow {
+            color: #667eea;
+            font-size: 18px;
+        }
+        
+        .metrics {
+            background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border-radius: 12px;
+            padding: 25px;
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+            text-align: center;
+            margin-top: auto;
+        }
+        
+        .metric {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .metric-value {
+            font-size: 32px;
+            font-weight: 800;
+            margin-bottom: 5px;
+        }
+        
+        .metric-label {
+            font-size: 12px;
+            opacity: 0.9;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        @media (max-width: 1024px) {
+            .slide {
+                padding: 40px;
+            }
+            
+            .header h1 {
+                font-size: 36px;
+            }
+            
+            .content {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+            
+            .metrics {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+        
+        .download-btn {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            padding: 10px 20px;
+            background: #667eea;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 600;
+            transition: background 0.3s;
+        }
+        
+        .download-btn:hover {
+            background: #764ba2;
+        }
+    </style>
+</head>
+<body>
+    <button class="download-btn" onclick="downloadSlide()">📥 Download PNG</button>
+    
+    <div class="slide" id="slide">
+        <div class="header">
+            <h1>🎓 ICS Quiz System — Solution Overview</h1>
+            <p>Scalable Two-Service Architecture for 50,000+ Concurrent Students</p>
+        </div>
+        
+        <div class="content">
+            <!-- Problem Card -->
+            <div class="card problem">
+                <h3>📊 The Problem</h3>
+                <ul>
+                    <li><strong>Existing systems crash under load</strong></li>
+                    <li>High exam traffic causes server failures</li>
+                    <li>Slow result processing</li>
+                    <li>50,000+ concurrent students expected</li>
+                    <li>DB write spikes (5M submissions)</li>
+                    <li>Login timeouts, MCQ delays</li>
+                    <li><strong>Need: Scalable, Secure, Modern Solution</strong></li>
+                </ul>
+            </div>
+            
+            <!-- Solution Card -->
+            <div class="card solution">
+                <h3>✅ Our Solution</h3>
+                <ul>
+                    <li><strong>Two Independent Services:</strong></li>
+                    <li>🟢 Login + Analytics (read-heavy)</li>
+                    <li>🔵 Submission Service (write-heavy)</li>
+                    <li>Queue-based buffering (RabbitMQ)</li>
+                    <li>Batch DB writes (100x faster)</li>
+                    <li>Multi-layer caching (CDN+Redis)</li>
+                    <li>Independent scaling & failover</li>
+                </ul>
+            </div>
+            
+            <!-- Benefits Card -->
+            <div class="card benefits">
+                <h3>⭐ Key Benefits</h3>
+                <ul>
+                    <li>✓ 30-50k submissions/sec</li>
+                    <li>✓ Login latency: &lt;80ms</li>
+                    <li>✓ MCQ load: &lt;10ms (cached)</li>
+                    <li>✓ 100% submission durability</li>
+                    <li>✓ 40% cheaper (24-30GB RAM)</li>
+                    <li>✓ Zero data loss on failures</li>
+                </ul>
+            </div>
+        </div>
+        
+        <!-- Architecture Flow -->
+        <div class="architecture-mini">
+            <h4>🏗️ Architecture Flow</h4>
+            <div class="flow">
+                <div class="flow-item">CDN</div>
+                <div class="flow-arrow">→</div>
+                <div class="flow-item">NGINX</div>
+                <div class="flow-arrow">→</div>
+                <div class="flow-item">Login Service</div>
+                <div class="flow-arrow">→</div>
+                <div class="flow-item">Redis</div>
+            </div>
+            <div class="flow" style="margin-top: 10px;">
+                <div class="flow-item">Submission API</div>
+                <div class="flow-arrow">→</div>
+                <div class="flow-item">RabbitMQ</div>
+                <div class="flow-arrow">→</div>
+                <div class="flow-item">Workers</div>
+                <div class="flow-arrow">→</div>
+                <div class="flow-item">PostgreSQL</div>
+            </div>
+        </div>
+        
+        <!-- Metrics -->
+        <div class="metrics">
+            <div class="metric">
+                <div class="metric-value">50k+</div>
+                <div class="metric-label">Concurrent Users</div>
+            </div>
+            <div class="metric">
+                <div class="metric-value">50k/s</div>
+                <div class="metric-label">DB Write Throughput</div>
+            </div>
+            <div class="metric">
+                <div class="metric-value">24-30GB</div>
+                <div class="metric-label">Total RAM Required</div>
+            </div>
+            <div class="metric">
+                <div class="metric-value">100%</div>
+                <div class="metric-label">Submission Durability</div>
+            </div>
+        </div>
+    </div>
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <script>
+        async function downloadSlide() {
+            const slide = document.getElementById('slide');
+            const canvas = await html2canvas(slide, {
+                backgroundColor: '#ffffff',
+                scale: 2,
+                logging: false
+            });
+            
+            const link = document.createElement('a');
+            link.href = canvas.toDataURL('image/png');
+            link.download = 'ICS-Quiz-Solution-Overview.png';
+            link.click();
+        }
+    </script>
+</body>
+</html>

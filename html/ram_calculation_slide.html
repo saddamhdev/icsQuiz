@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RAM Calculation Slide</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+</head>
+<body style="margin: 0; padding: 20px; background: #f5f5f5; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;">
+    <div style="text-align: center; margin-bottom: 20px;">
+        <h1>RAM Calculation Slide - Updated</h1>
+        <button onclick="downloadPNG()" style="padding: 10px 20px; font-size: 16px; background: #667eea; color: white; border: none; border-radius: 4px; cursor: pointer;">
+            📥 Download as PNG
+        </button>
+    </div>
+
+    <div id="slide" style="background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 50%, #ffffff 100%); padding: 60px; margin: 0 auto; width: fit-content; border-radius: 16px; box-shadow: 0 20px 60px rgba(0,0,0,0.1); max-width: 1400px; aspect-ratio: 16/9;">
+        
+        <div style="display: flex; flex-direction: column; height: 100%; justify-content: space-between;">
+            
+            <!-- Header -->
+            <div style="text-align: center; margin-bottom: 30px;">
+                <div style="display: inline-flex; align-items: center; gap: 15px; justify-content: center;">
+                    <div style="width: 30px; height: 30px; background: linear-gradient(135deg, #e74c3c 0%, #c0392b 100%); border-radius: 8px; box-shadow: 0 4px 8px rgba(231, 76, 60, 0.3);"></div>
+                    <h1 style="font-size: 48px; color: #1a1a1a; margin: 0; font-weight: 800;">Total RAM for 50k Concurrent Students</h1>
+                </div>
+                <p style="font-size: 16px; color: #555555; margin: 20px 0 0 0;">Complete Stack Breakdown - Realistic & Production-Ready</p>
+            </div>
+
+            <!-- Main Content -->
+            <div style="display: grid; grid-template-columns: 2fr 1fr; gap: 30px; flex: 1; margin-bottom: 30px;">
+                
+                <!-- Table Section -->
+                <div style="background: #ffffff; border-radius: 14px; padding: 30px; border: 2px solid #e0e0e0; box-shadow: 0 8px 16px rgba(0,0,0,0.08);">
+                    <h2 style="font-size: 20px; color: #1a1a1a; margin: 0 0 25px 0; font-weight: 700;">📊 Component-wise Breakdown</h2>
+                    
+                    <table style="width: 100%; border-collapse: collapse; color: #333333; font-size: 14px;">
+                        <thead>
+                            <tr style="border-bottom: 2px solid #e74c3c; background: #f8f9fa;">
+                                <th style="text-align: left; padding: 12px 15px; font-weight: 700; color: #1a1a1a; text-transform: uppercase; letter-spacing: 0.5px;">Component</th>
+                                <th style="text-align: right; padding: 12px 15px; font-weight: 700; color: #1a1a1a; text-transform: uppercase; letter-spacing: 0.5px;">RAM</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr style="border-bottom: 1px solid #eeeeee;">
+                                <td style="padding: 14px 15px; font-weight: 600; color: #333333;">🟢 Login + Analytics</td>
+                                <td style="text-align: right; padding: 14px 15px; font-weight: 700; color: #27ae60;">4-6 GB</td>
+                            </tr>
+                            <tr style="border-bottom: 1px solid #eeeeee;">
+                                <td style="padding: 14px 15px; font-weight: 600; color: #333333;">🔵 Submission Service</td>
+                                <td style="text-align: right; padding: 14px 15px; font-weight: 700; color: #2980b9;">12-16 GB</td>
+                            </tr>
+                            <tr style="border-bottom: 1px solid #eeeeee;">
+                                <td style="padding: 14px 15px; font-weight: 600; color: #333333;">💾 Redis Cache</td>
+                                <td style="text-align: right; padding: 14px 15px; font-weight: 700; color: #e74c3c;">1 GB</td>
+                            </tr>
+                            <tr style="border-bottom: 1px solid #eeeeee;">
+                                <td style="padding: 14px 15px; font-weight: 600; color: #333333;">🐰 RabbitMQ Queue</td>
+                                <td style="text-align: right; padding: 14px 15px; font-weight: 700; color: #c0392b;">2 GB</td>
+                            </tr>
+                            <tr style="border-bottom: 1px solid #eeeeee;">
+                                <td style="padding: 14px 15px; font-weight: 600; color: #333333;">🗄️ PostgreSQL DB</td>
+                                <td style="text-align: right; padding: 14px 15px; font-weight: 700; color: #16a085;">3-4 GB</td>
+                            </tr>
+                            <tr style="border-bottom: 2px solid #e74c3c;">
+                                <td style="padding: 14px 15px; font-weight: 600; color: #333333;">🖥️ OS + K3s System</td>
+                                <td style="text-align: right; padding: 14px 15px; font-weight: 700; color: #f39c12;">2 GB</td>
+                            </tr>
+                            <tr style="background: linear-gradient(90deg, #fff5f5 0%, #fff9f9 100%);">
+                                <td style="padding: 16px 15px; font-weight: 700; color: #1a1a1a; text-transform: uppercase; letter-spacing: 0.5px;">TOTAL (Realistic)</td>
+                                <td style="text-align: right; padding: 16px 15px; font-weight: 800; font-size: 18px; color: #e74c3c;">24-30 GB</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- Summary Cards -->
+                <div style="display: flex; flex-direction: column; gap: 20px;">
+                    
+                    <!-- Key Metric -->
+                    <div style="background: linear-gradient(135deg, #e74c3c 0%, #c0392b 100%); border-radius: 12px; padding: 25px; box-shadow: 0 8px 16px rgba(231, 76, 60, 0.3);">
+                        <div style="font-size: 13px; color: #ffffff; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 10px; font-weight: 600;">Recommended Setup</div>
+                        <div style="font-size: 42px; font-weight: 800; color: #ffffff; margin-bottom: 5px;">32 GB</div>
+                        <div style="font-size: 13px; color: #ffffff; font-weight: 500;">HA buffer + future growth</div>
+                    </div>
+
+                    <!-- Min Setup -->
+                    <div style="background: linear-gradient(135deg, #3498db 0%, #2980b9 100%); border-radius: 12px; padding: 25px; box-shadow: 0 8px 16px rgba(52, 152, 219, 0.3);">
+                        <div style="font-size: 13px; color: #ffffff; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 10px; font-weight: 600;">Minimum Setup</div>
+                        <div style="font-size: 36px; font-weight: 800; color: #ffffff; margin-bottom: 5px;">24 GB</div>
+                        <div style="font-size: 13px; color: #ffffff; font-weight: 500;">Production ready</div>
+                    </div>
+
+                    <!-- Per-Student -->
+                    <div style="background: linear-gradient(135deg, #2ecc71 0%, #27ae60 100%); border-radius: 12px; padding: 25px; box-shadow: 0 8px 16px rgba(46, 204, 113, 0.3);">
+                        <div style="font-size: 13px; color: #ffffff; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 10px; font-weight: 600;">Per Student</div>
+                        <div style="font-size: 36px; font-weight: 800; color: #ffffff; margin-bottom: 5px;">~0.5 MB</div>
+                        <div style="font-size: 13px; color: #ffffff; font-weight: 500;">Cost-effective scale</div>
+                    </div>
+
+                </div>
+
+            </div>
+
+            <!-- Bottom Insights -->
+            <div style="background: linear-gradient(90deg, #e3f2fd 0%, #f3e5f5 100%); border-left: 4px solid #2980b9; border-radius: 8px; padding: 20px; border: 1px solid #bbdefb;">
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 30px;">
+                    
+                    <div>
+                        <div style="font-size: 14px; font-weight: 700; color: #1a1a1a; margin-bottom: 10px;">💡 Key Insights</div>
+                        <ul style="list-style: none; margin: 0; padding: 0; font-size: 13px; color: #333333; line-height: 1.9;">
+                            <li style="margin-bottom: 8px;">✓ Two independent services = better scalability</li>
+                            <li style="margin-bottom: 8px;">✓ Submission service needs most RAM (write-heavy)</li>
+                            <li>✓ Virtual Threads reduce memory footprint</li>
+                        </ul>
+                    </div>
+
+                    <div>
+                        <div style="font-size: 14px; font-weight: 700; color: #1a1a1a; margin-bottom: 10px;">🎯 Infrastructure Options</div>
+                        <ul style="list-style: none; margin: 0; padding: 0; font-size: 13px; color: #333333; line-height: 1.9;">
+                            <li style="margin-bottom: 8px;">• Single 32GB node (simple, single-node K3s)</li>
+                            <li style="margin-bottom: 8px;">• 2×16GB nodes (HA, distributed)</li>
+                            <li>• 4×8GB nodes (full distributed, auto-scaling)</li>
+                        </ul>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <script>
+        async function downloadPNG() {
+            const slide = document.getElementById('slide');
+            const canvas = await html2canvas(slide, {
+                backgroundColor: '#ffffff',
+                scale: 2,
+                logging: false
+            });
+            
+            const link = document.createElement('a');
+            link.href = canvas.toDataURL('image/png');
+            link.download = 'RAM-Calculation-Total.png';
+            link.click();
+        }
+    </script>
+</body>
+</html>
